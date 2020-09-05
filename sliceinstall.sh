@@ -257,7 +257,7 @@
                     sudo chown -R postgres:postgres $mount/.sliceup-data/pgdata
                     sudo mkdir /etc/systemd/system/postgresql-10.service.d
                     sudo echo "[Service]" > /etc/systemd/system/postgresql-10.service.d/override.conf
-                    sudo echo "Environment=PGDATA=$mount.sliceup-data/pgdata" >> /etc/systemd/system/postgresql-10.service.d/override.conf
+                    sudo echo "Environment=PGDATA=$mount/.sliceup-data/pgdata" >> /etc/systemd/system/postgresql-10.service.d/override.conf
                     sudo systemctl daemon-reload
                     sudo /usr/pgsql-10/bin/postgresql-10-setup initdb
                     sudo systemctl enable postgresql-10
