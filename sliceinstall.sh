@@ -339,14 +339,21 @@
 
 
 	     if [ "$s" = "N" ] || [ "$s" = "n" ]; then
-          #set kafka directory and escape / using //
-          kafkadir=\\$mount\\/.sliceup-data\\/kafka\\/broker-1
 
-          sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-1/log.dirs=$kafkadir/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-1.properties
-          sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-1/log.dirs=$kafkadir/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-2.properties
-          sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-1/log.dirs=$kafkadir/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-3.properties
-          sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-1/log.dirs=$kafkadir/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-4.properties  
-         fi
+
+		  #set kafka directory and escape / using //
+		  kafkadir1=\\$mount\\/.sliceup-data\\/kafka\\/broker-1
+		  kafkadir2=\\$mount\\/.sliceup-data\\/kafka\\/broker-2
+		  kafkadir3=\\$mount\\/.sliceup-data\\/kafka\\/broker-3
+		  kafkadir4=\\$mount\\/.sliceup-data\\/kafka\\/broker-4
+
+
+		  sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-1/log.dirs=$kafkadir1/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-1.properties
+		  sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-2/log.dirs=$kafkadir2/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-2.properties
+		  sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-3/log.dirs=$kafkadir3/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-3.properties
+		  sudo sed -i "s/log.dirs=\/tmp\/kafka-logs-4/log.dirs=$kafkadir4/" /opt/sliceup/executables/kafka_2.12-2.4.1/config/server-4.properties
+
+	    fi
 
 
 
