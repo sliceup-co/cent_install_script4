@@ -20,7 +20,7 @@
     sudo yum install -y sshpass
 
 #Get password for postgres
-    echo -e "\e[96m Please enter the password for the database.  \e[39m"
+    echo -e "\e[96m Please choose and enter the password for the database. \e[39m"
     read psqlpass
 
 
@@ -31,11 +31,14 @@
         echo -e "\e[96m It is important to choose the correct database data directory \e[39m"
         echo -e "\e[96m This is the location where your database will be installed. If there is not enough space, the system will not function \e[39m"
 
-        echo -e "\e[96m Use a directory with approx 1Tb of storage or more \e[39m"
+
+        echo -e "\e[96m  Use a directory with approx 1Tb of storage or more.\e[39m"
+        echo -e "\e[96m Look at the \"Avail\" column and note the Mounted on option with the required space \e[39m"
         echo -e "\e[96m Here is your directory structure \e[39m"
+	echo " "
+       
         sudo df -h
-        echo " "
-        echo -e "\e[96m Look at the \"Avail\" column and note the mount with the required space \e[39m"
+
         echo " "
         echo -e "\e[96m If \"/\" or \"/var/\" has the correctly allocated space, you can use system defaults \e[39m"
         echo -e "\e[96m Otherwise, a custom directory will need to be used \e[39m"
