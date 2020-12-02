@@ -9,6 +9,8 @@
     read y 
 
 #Make sure the tar file is present.
+    cp ../executables.tar.gz ./ 2>/dev/null
+    
     executablestest=$(ls executables.tar.gz)
                    if [[ "$executablestest" != "executables.tar.gz" ]]; then
                         echo -e "\e[96m The file executables.tar.gz was not found in the same directory as the install script SSH. \e[39m"
@@ -266,6 +268,13 @@
                     sudo systemctl enable postgresql-10
                     sudo systemctl start postgresql-10
                     dbdir=$mount/.sliceup-data/pgdata
+		    
+		    sed -i 's/^.*shared_buffers =.*/shared_buffers = 4096MB/g' $mount/.sliceup-data/pgdata/postgresql.conf
+                    sed -i 's/^.*effective_cache_size.*/effective_cache_size = 16GB/g' $mount/.sliceup-data/pgdata/postgresql.conf
+                    sed -i 's/^.*synchronous_commit.*/synchronous_commit = off/' $mount/.sliceup-data/pgdata/postgresql.conf
+                    sed -i 's/^.*max_connections.*/max_connections = 300/' $mount/.sliceup-data/pgdata/postgresql.conf
+                    sed -i "s/^.*log_destination.*/log_destination = 'csvlog'/" $mount/.sliceup-data/pgdata/postgresql.conf
+		    sudo systemctl restart postgresql-10
                 fi
 
 ###If data mount is default e.g. $s=y
@@ -278,7 +287,14 @@
                     sudo systemctl start postgresql-10
                     sudo systemctl enable postgresql-10
                     dbdir=/var/lib/pgsql/10/data
-
+		    
+                     sed -i 's/^.*shared_buffers =.*/shared_buffers = 4096MB/g' /var/lib/pgsql/10/data/postgresql.conf
+                     sed -i 's/^.*effective_cache_size.*/effective_cache_size = 16GB/g' /var/lib/pgsql/10/data/postgresql.conf
+                     sed -i 's/^.*synchronous_commit.*/synchronous_commit = off/' /var/lib/pgsql/10/data/postgresql.conf
+                     sed -i 's/^.*max_connections.*/max_connections = 300/' /var/lib/pgsql/10/data/postgresql.conf
+                     sed -i "s/^.*log_destination.*/log_destination = 'csvlog'/" /var/lib/pgsql/10/data/postgresql.conf
+		     sudo systemctl restart postgresql-10
+		     
                 fi
 
 
@@ -322,11 +338,11 @@
     sudo yum install PyOpenGL libtool autoconf pkgconfig python-pillow qt-devel python-tools python-pyside python2-pyside python36-pyside qt4-devel PyQt4-devel qt-x11 -y
     #sudo apt-get install build-essential autoconf libtool pkg-config python-opengl python-pil python-pyrex python-pyside.qtopengl idle-python2.7 qt4-dev-tools qt4-designer libqtgui4 libqtcore4 libqt4-xml libqt4-test libqt4-script libqt4-network libqt4-dbus python-qt4 python-qt4-gl libgle3 python-dev -y
     sudo yum install python3-pip -y
-    sudo python3 -m pip install psycopg2
-    sudo python3 -m pip install requests
-    sudo python3 -m pip install PrettyTable
-    sudo python3 -m pip install selenium
-    sudo python3 -m pip install kafka-python
+    sudo python3 -m pip install psycopg2 2>/dev/null
+    sudo python3 -m pip install requests 2>/dev/null
+    sudo python3 -m pip install PrettyTable 2>/dev/null
+    sudo python3 -m pip install selenium 2>/dev/null
+    sudo python3 -m pip install kafka-python 2>/dev/null
 
 
     echo -e "\e[96m Replace variable information in configs  \e[39m"
