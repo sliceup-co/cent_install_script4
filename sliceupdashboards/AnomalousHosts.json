@@ -1,0 +1,751 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 24,
+  "iteration": 1606503431120,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 228
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "",
+                    "url": "/d/O7q27qdMk/host-investigation-dashboard?orgId=1&var-Hostname=${__data.fields[Host]}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Anomaly Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 109
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Score"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "semi-dark-yellow",
+                      "value": 3
+                    },
+                    {
+                      "color": "semi-dark-red",
+                      "value": 6
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": ".1",
+                    "id": 0,
+                    "operator": "",
+                    "text": "Low",
+                    "to": "2.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "3",
+                    "id": 1,
+                    "operator": "",
+                    "text": "Medium",
+                    "to": "5.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "6",
+                    "id": 2,
+                    "operator": "",
+                    "text": "High",
+                    "to": "10000000",
+                    "type": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Avg Score"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 95
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "semi-dark-yellow",
+                      "value": 3
+                    },
+                    {
+                      "color": "semi-dark-red",
+                      "value": 6
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": ".1",
+                    "id": 0,
+                    "operator": "",
+                    "text": "Low",
+                    "to": "2.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "3",
+                    "id": 1,
+                    "operator": "",
+                    "text": "Medium",
+                    "to": "5.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "6",
+                    "id": 2,
+                    "operator": "",
+                    "text": "High",
+                    "to": "10000000",
+                    "type": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Max Score"
+          }
+        ]
+      },
+      "pluginVersion": "7.0.4",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select \ndistinct(anomaly_host_detail.unit_name) as \"Host\",\ncount(anomalous_score) as \"Anomaly Count\",\navg(anomalous_score) as \"Avg Score\",\nmax(anomalous_score) as \"Max Score\"\nFROM  anomaly_host_detail \nWHERE anomaly_host_detail.start_time BETWEEN $__from AND $__to\nGROUP BY anomaly_host_detail.unit_name;\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Anomalous Hosts",
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 233
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Anomaly Level"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "semi-dark-yellow",
+                      "value": 3
+                    },
+                    {
+                      "color": "semi-dark-red",
+                      "value": 6
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 131
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": ".1",
+                    "id": 0,
+                    "operator": "",
+                    "text": "Low",
+                    "to": "2.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "3",
+                    "id": 1,
+                    "operator": "",
+                    "text": "Medium",
+                    "to": "5.9999",
+                    "type": 2
+                  },
+                  {
+                    "from": "6",
+                    "id": 2,
+                    "operator": "",
+                    "text": "High",
+                    "to": "10000000",
+                    "type": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 152
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Window"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Host-Window Details",
+                    "url": "/d/GGU0VuNMz/anomaly-detail-for-a-time-window?var-time_window_id=${__data.fields[Window]}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 9,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Anomaly Level"
+          }
+        ]
+      },
+      "pluginVersion": "7.0.4",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select \ndistinct(anomaly_host_detail.unit_name) as \"Host\",\nanomaly_host_detail.start_time as \"Time\",\nanomaly_host_detail.id as \"Window\",\nanomaly_host_detail.anomalous_score as \"Anomaly Level\"\nFROM word_scores_by_time_window_and_template\nJOIN anomaly_host_detail ON anomaly_host_detail.id = time_window_id\nWHERE word_contribution > 0 and anomaly_host_detail.unit_name = '$Hostname'\n    AND anomaly_host_detail.start_time BETWEEN $__from AND $__to\nGROUP BY anomaly_host_detail.unit_name, anomaly_host_detail.id, anomaly_host_detail.start_time, anomaly_host_detail.anomalous_score;\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Anomalies for Host",
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "series_index": 0,
+        "wordCloudOptions": {
+          "deterministic": true,
+          "enableTooltip": true,
+          "fontFamily": "arial",
+          "fontSizes": [
+            15,
+            80
+          ],
+          "padding": 1,
+          "rotationAngles": [
+            0,
+            0
+          ],
+          "rotations": 2,
+          "scale": "sqrt",
+          "spiral": "archimedean",
+          "transitionDuration": 800
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT word_sentiment AS \"Tag/Words\",\r\n       sum(word_contribution) AS \"Count\"\r\nFROM word_scores_by_time_window_and_template\r\nJOIN anomaly_host_detail ON anomaly_host_detail.id = time_window_id\r\nWHERE word_contribution > 0 and anomaly_host_detail.unit_name = '$Hostname'\r\n    AND anomaly_host_detail.start_time BETWEEN $__from AND $__to\r\nGROUP BY word_sentiment;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Word Cloud for Host",
+      "type": "magnesium-wordcloud-panel"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "json-view"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 69
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 86
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "template"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 1209
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "occur"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sample"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 855
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "clean_template"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 353
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 8,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "max"
+          }
+        ]
+      },
+      "pluginVersion": "7.0.4",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \"Sample\", clean_template, a.Occur, a.Avg, a.Max\r\nFROM clean_templates\r\nINNER JOIN (SELECT \ttime_window_templates.template_id, \r\n\t\t\ttime_window_templates.template_version, \r\n\t\t\tCOUNT(time_window_templates.sentiment_contribution) as Occur,\r\n\t\t\tROUND(AVG(time_window_templates.sentiment_contribution)*100,2) as Avg,\r\n\t\t\tROUND(MAX(time_window_templates.sentiment_contribution)*100,2) as Max\r\nFROM anomaly_host_detail\r\nINNER JOIN time_window_templates\r\nON anomaly_host_detail.id = time_window_templates.time_window_id\r\nWHERE anomaly_host_detail.unit_name = '$Hostname' AND \r\n(anomaly_host_detail.start_time BETWEEN $__from AND $__to)\r\nAND time_window_templates.sentiment_contribution > 0.0\r\nGROUP BY template_id, template_version) a\r\nON clean_templates.id = a.template_id AND clean_templates.version = a.template_version;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Log Templates for Host and Anomaly Contribution",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [
+    "Direct"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Hostname",
+        "options": [
+          {
+            "selected": false,
+            "text": "0",
+            "value": "0"
+          }
+        ],
+        "query": "0",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Anomalous Hosts",
+  "uid": "O7q27qdMk",
+  "version": 39
+}
